@@ -147,10 +147,6 @@
 }
 
 body {
-  background-color: var(--theme-bg);
-  color: var(--theme-text);
-  font-family: var(--font-regular), serif;
-  margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

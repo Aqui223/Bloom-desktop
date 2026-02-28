@@ -1,12 +1,16 @@
 import "./App.css";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {Auth} from "./pages/Auth.tsx";
 
 function App() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-xl gap-md bg-background">
-      <h1 className="text-xxl font-bold text-text-main">
-        Tauri + React + Tailwind v4
-      </h1>
-    </main>
+    <div className="h-screen w-screen overflow-hidden bg-background font-regular text-text-main">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Auth/>}/>
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 
