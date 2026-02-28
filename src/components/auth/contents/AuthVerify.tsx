@@ -77,9 +77,9 @@ export default function AuthVerify({onNext}: AuthVerifyProps) {
   };
 
   return (
-    <div className="flex-1 flex flex-col justify-center items-center gap-lg">
+    <div className="flex-1 flex flex-col justify-center items-center gap-lg w-[356px]">
       <AuthTitle icon="id" title="Проверка почты"/>
-      <div className="flex justify-center items-center gap-sm w-[356px]">
+      <div className="flex justify-center items-center gap-sm w-full">
         {code.map((digit, index) => (
           <React.Fragment key={index}>
             <VerifyInput

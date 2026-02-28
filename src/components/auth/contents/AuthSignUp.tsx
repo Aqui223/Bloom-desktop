@@ -18,7 +18,7 @@ export default function AuthSignUp({onNext}: AuthSignUpProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex-1 flex flex-col justify-center items-center gap-lg">
+    <form onSubmit={handleSubmit} className="flex-1 flex flex-col justify-center items-center gap-lg w-[356px]">
       <AuthTitle icon="lock" title="Пароль и ник"/>
 
       <TextInput
@@ -38,7 +38,7 @@ export default function AuthSignUp({onNext}: AuthSignUpProps) {
         required
       />
 
-      <p className="text-center select-none text-md text-text-secondary w-[330px] break-words">
+      <p className="text-center select-none text-md text-text-secondary w-full break-words">
         Пароль должен состоять из 8-64 любых символов. Он будет использоваться для <a href="#"
                                                                                       className="text-primary cursor-pointer font-semibold">облачного
         хранения ключей</a>

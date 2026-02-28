@@ -19,7 +19,7 @@ export default function AuthEmail({email, setEmail, onNext}: AuthEmailProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex-1 flex flex-col justify-center items-center gap-lg">
+    <form onSubmit={handleSubmit} className="flex-1 flex flex-col justify-center items-center gap-lg w-[356px]">
       <AuthTitle icon="at" title="Введите почту"/>
 
       <TextInput
@@ -29,7 +29,7 @@ export default function AuthEmail({email, setEmail, onNext}: AuthEmailProps) {
         type="email"
       />
 
-      <p className="text-center select-none font-medium text-md text-text-secondary w-[330px] break-words">
+      <p className="text-center select-none font-medium text-md text-text-secondary w-full break-words">
         После этого мы отправим 6-значный код подтверждения на вашу почту
       </p>
 
