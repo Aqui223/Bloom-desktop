@@ -39,6 +39,7 @@
   --theme-text-content: #00000080;
   --theme-text-overlay: #000000bf;
   --theme-foreground: #e0e0e0;
+  --theme-foreground-soft: #f1f1f4;
   --theme-foreground-transparent: #0000001f;
   --theme-indicator: #0000001a;
   --theme-foreground-blur: #8080801a;
@@ -53,6 +54,7 @@
   --theme-text-content: #ffffff80;
   --theme-text-overlay: #ffffffbf;
   --theme-foreground: #1f1f1f;
+  --theme-foreground-soft: #1f1f1f;
   --theme-foreground-transparent: #ffffff1f;
   --theme-indicator: #ffffff26;
   --theme-foreground-blur: #80808033;
@@ -67,6 +69,7 @@
   --color-text-content: var(--theme-text-content);
   --color-text-overlay: var(--theme-text-overlay);
   --color-foreground: var(--theme-foreground);
+  --color-foreground-soft: var(--theme-foreground-soft);
   --color-foreground-transparent: var(--theme-foreground-transparent);
   --color-indicator: var(--theme-indicator);
   --color-foreground-blur: var(--theme-foreground-blur);
