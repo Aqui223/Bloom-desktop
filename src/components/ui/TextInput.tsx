@@ -1,23 +1,19 @@
-import {forwardRef, InputHTMLAttributes, useState} from 'react';
+import {forwardRef, InputHTMLAttributes, ReactNode, useState} from 'react';
 import Icon from './Icon.tsx';
 import {ICONS} from '../../constants/icons.ts';
 
 export interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   icon?: keyof typeof ICONS;
   error?: boolean;
+  leftElement?: ReactNode;
 }
 
 const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
-  ({icon = 'at', error, className = '', value, type, ...props}, ref) => {
+  ({icon = 'at', leftElement, error, className = '', value, type, ...props}, ref) => {
     const [showPassword, setShowPassword] = useState(false);
-
     const hasText = Boolean(value || props.defaultValue);
-
     const isPasswordInput = type === 'password';
-
-    const inputType = isPasswordInput
-      ? (showPassword ? 'text' : 'password')
-      : type;
+    const inputType = isPasswordInput ? (showPassword ? 'text' : 'password') : type;
 
     return (
       <div
@@ -28,15 +24,19 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
           ${className}
         `}
       >
-        <div className="flex aspect-square h-full shrink-0 items-center justify-center">
-          <Icon
-            icon={icon}
-            size={24}
-            className={`
-            transition-colors ${hasText ? 'text-text-main' : 'text-text-secondary'}
-            ${error ? '!text-red' : ''}
-            `}
-          />
+        <div className="flex aspect-square h-full shrink-0 items-center justify-center relative">
+          {leftElement ? (
+            leftElement
+          ) : (
+            <Icon
+              icon={icon}
+              size={24}
+              className={`
+                transition-colors ${hasText ? 'text-text-main' : 'text-text-secondary'}
+                ${error ? '!text-red' : ''}
+              `}
+            />
+          )}
         </div>
 
         <input
