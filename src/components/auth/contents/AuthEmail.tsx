@@ -33,20 +33,37 @@ const animVariants: Variants = {
 async function clicked_submit(email)
 {
     let exists: boolean = false
+    let status = 0
     try {
-        res_exists = await axios.get(`${API_URL}/user/exists`, { params: { email }});
+        res_exists = await axios.get(`${API_URL}/user/exists`, { params: { email }})
+            .catch(error => {
+                status = error.response.status;
+                throw new Error(`User exists route has a ${status} status code`);
+        });
         exists = res_exists.data?.exists
     } catch (error: any) {
         if (!error?.response?.data?.exists) {
-            exists = false
+            exists = false;
         } else {
-            throw new Error(error.response?.data?.message || 'Failed to check user')
+            throw new Error(error.response?.data?.message || 'Failed to check user');
         }
     }
     if (exists) {
-        axios.post(`${API_URL}/auth/request-code`, { email })
+        res = axios.post(`${API_URL}/auth/request-code`, { email })
+            .catch(error => {
+                status = error.response.status;
+                throw new Error(`Auth request-code route returned the ${status} status code`);
+        });
     } else {
         const res = await axios.post(`${API_URL}/auth/register`, { email })
+            .catch(error => {
+                status = error.response.status;
+                throw new Error(`Auth register route returned the ${status} status code`);
+        });
+        if (res.status != 200)
+        {
+            throw Error(`Auth register route has ${res.status} as the status code`)
+        }
         if (res.data?.error) {
             throw new Error('Failed to register')
         }
