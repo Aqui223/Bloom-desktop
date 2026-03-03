@@ -10,21 +10,21 @@ const providers: Record<Provider, string[]> = {
 }
 
 export default function parseEmail(email: string): { valid: boolean; provider: Provider } {
-  if (!email || typeof email !== 'string') {
-    return { valid: false, provider: 'unknown' }
+  if (!email) {
+    return {valid: false, provider: 'unknown'}
   }
 
   const trimmedEmail = email.trim()
   if (!trimmedEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
-    return { valid: false, provider: 'unknown' }
+    return {valid: false, provider: 'unknown'}
   }
 
   const domain = trimmedEmail.split('@')[1]?.toLowerCase()
   if (!domain) {
-    return { valid: false, provider: 'unknown' }
+    return {valid: false, provider: 'unknown'}
   }
 
   const provider = (Object.keys(providers) as Provider[]).find((p) => p !== 'unknown' && providers[p].includes(domain)) ?? 'unknown'
 
-  return { valid: true, provider }
+  return {valid: true, provider}
 }
