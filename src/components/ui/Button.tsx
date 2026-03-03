@@ -1,31 +1,31 @@
-import {ButtonHTMLAttributes, forwardRef} from 'react';
+import {forwardRef} from 'react';
+import {HTMLMotionProps, motion} from "framer-motion";
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends HTMLMotionProps<'button'> {
   variant?: 'primary' | 'icon-secondary';
 }
+
+const MotionButton = motion.button;
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({children, variant = 'primary', className = '', ...props}, ref) => {
     const baseStyles = `
-      h-super flex items-center justify-center rounded-full transition-all
-      active:scale-95 select-none
+      h-super flex items-center justify-center rounded-full select-none
       enabled:cursor-pointer disabled:cursor-not-allowed disabled:opacity-20
-      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background
+      focus-visible:outline-none
     `;
 
     const variants = {
       primary: `
         w-full bg-primary text-lg font-semibold text-white
-        enabled:hover:bg-backdrop-primary focus-visible:ring-primary/50
       `,
       'icon-secondary': `
         aspect-square bg-background text-text-content shadow-md
-        enabled:hover:bg-foreground-soft focus-visible:ring-foreground
       `,
     };
 
     return (
-      <button
+      <MotionButton
         ref={ref}
         {...props}
         className={`
@@ -33,9 +33,31 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           ${variants[variant]}
           ${className}
         `}
+        transition={{
+          type: 'spring',
+          stiffness: 400,
+          damping: 25
+        }}
+        whileHover={
+          props.disabled ? {} : {
+            filter: 'brightness(1.5)'
+          }
+        }
+        whileTap={
+          props.disabled ? {} : {
+            filter: 'brightness(1.25)',
+            scale: 1.075
+          }
+        }
+        whileFocus={
+          props.disabled ? {} : {
+            filter: 'brightness(1.25)',
+            scale: 1.075
+          }
+        }
       >
         {children}
-      </button>
+      </MotionButton>
     );
   }
 );
