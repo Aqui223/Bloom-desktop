@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {AnimatePresence, motion, Variants} from "framer-motion";
 import TextInput from "../../ui/TextInput.tsx";
-import AuthTitle from "../AuthTitle.tsx";
+import AuthContainer from "../AuthContainer.tsx";
 import Icon from "../../ui/Icon.tsx";
 import parseEmail from "../../../lib/parseEmail.ts";
 import {PROVIDERS_LOGOS} from "../../../constants/providerLogos.ts";
@@ -125,13 +125,13 @@ export default function AuthEmail({
   );
 
   return (
-    <form
-      id="auth-step-form"
+    <AuthContainer
+      icon="at"
+      title="Введите почту"
+      description="После этого мы отправим 6-значный код подтверждения на вашу почту"
       onSubmit={handleSubmit}
-      className="flex-1 flex flex-col justify-center items-center gap-lg w-[356px]"
+      isError={isError}
     >
-      <AuthTitle icon="at" title="Введите почту"/>
-
       <TextInput
         value={email}
         onChange={(e) => {
@@ -143,12 +143,6 @@ export default function AuthEmail({
         error={isError}
         leftElement={animatedIcon}
       />
-
-      <p className="text-center select-none font-medium text-md text-text-secondary w-full break-words">
-        После этого мы отправим 6-значный код подтверждения на вашу почту
-      </p>
-
-      <button type="submit" className="hidden" disabled={!isValid}/>
-    </form>
+    </AuthContainer>
   );
 }

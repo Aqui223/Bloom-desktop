@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {AnimatePresence, motion} from "framer-motion";
-import AuthTitle from "../AuthTitle.tsx";
+import AuthContainer from "../AuthContainer.tsx";
 
 const springy = {
   type: "spring" as const,
@@ -55,16 +55,15 @@ export default function AuthVerify({onNext, isError, setIsError}: AuthVerifyProp
   };
 
   return (
-    <form
-      id="auth-step-form"
+    <AuthContainer
+      icon="id"
+      title="Проверка почты"
+      description="Введите 6-значный код, отправленный на вашу почту"
       onSubmit={handleSubmit}
-      className="flex-1 flex flex-col justify-center items-center gap-lg w-[356px]"
+      isError={isError}
     >
-      <AuthTitle icon="id" title="Проверка почты"/>
-
-      <div
-        className="relative flex justify-center items-center gap-sm w-full cursor-text"
-        onClick={() => inputRef.current?.focus()}
+      <div className="relative flex justify-center items-center gap-sm w-full cursor-text"
+           onClick={() => inputRef.current?.focus()}
       >
         <input
           ref={inputRef}
@@ -147,12 +146,6 @@ export default function AuthVerify({onNext, isError, setIsError}: AuthVerifyProp
           );
         })}
       </div>
-
-      <p className="text-center select-none font-medium text-md text-text-secondary w-full break-words">
-        Введите 6-значный код, отправленный на вашу почту
-      </p>
-
-      <button type="submit" className="hidden"/>
-    </form>
+    </AuthContainer>
   );
 }

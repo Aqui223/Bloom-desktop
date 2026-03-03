@@ -1,6 +1,6 @@
 import TextInput from "../../ui/TextInput.tsx";
 import React, {useState} from "react";
-import AuthTitle from "../AuthTitle.tsx";
+import AuthContainer from "../AuthContainer.tsx";
 
 interface AuthSignUpProps {
   onNext: () => void;
@@ -12,12 +12,12 @@ export default function AuthSignUp({onNext, isError, setIsError}: AuthSignUpProp
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
 
-  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const isPasswordValid = password.length >= 8;
     const isNicknameValid = nickname.trim().length > 0;
-    
+
     if (!isPasswordValid || !isNicknameValid) {
       setIsError(true);
       return;
@@ -33,44 +33,39 @@ export default function AuthSignUp({onNext, isError, setIsError}: AuthSignUpProp
   };
 
   return (
-    <form
-      id="auth-step-form"
+    <AuthContainer
+      icon="lock"
+      title="Пароль и ник"
       onSubmit={handleSubmit}
-      className="flex-1 flex flex-col justify-center items-center gap-lg w-[356px]"
+      isError={isError}
+      description={
+        <>
+          Пароль должен состоять из 8-64 любых символов. Он будет использоваться для{" "}
+          <a href="#" className="text-primary font-semibold">облачного хранения ключей</a>
+        </>
+      }
     >
-      <AuthTitle icon="lock" title="Пароль и ник"/>
-
       <TextInput
         value={password}
-        icon="lock"
         type="password"
+        placeholder="Пароль"
+        icon="lock"
+        error={isError}
         onChange={(e) => {
           setPassword(e.target.value);
-          if (isError) setIsError(false);
+          setIsError(false);
         }}
-        placeholder="Пароль"
-        error={isError}
-        required
       />
-
       <TextInput
         value={nickname}
+        placeholder="Никнейм"
         icon="person"
+        error={isError}
         onChange={(e) => {
           setNickname(e.target.value);
-          if (isError) setIsError(false);
+          setIsError(false);
         }}
-        placeholder="Никнейм"
-        required
       />
-
-      <p className="text-center select-none text-md text-text-secondary w-full break-words">
-        Пароль должен состоять из 8-64 любых символов. Он будет использоваться для <a href="#"
-                                                                                      className="text-primary cursor-pointer font-semibold">облачного
-        хранения ключей</a>
-      </p>
-
-      <button type="submit" className="hidden"/>
-    </form>
+    </AuthContainer>
   );
 }
